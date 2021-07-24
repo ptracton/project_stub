@@ -1,0 +1,43 @@
+{
+    "project":"simulate_modelsim",
+    "installed tools": [
+        "xilinx",
+        "altera",
+        "icarus"
+    ],
+    "flow_steps": {
+        "1": "clean",
+        "2" : "clean_vlib",
+        "3":  "make_vlib",
+        "4":  "vlib",
+        "5":  "test_case",
+        "6" : "simulation"
+    },
+    "flow" : {
+        "clean":{
+            "executable":"rm",
+            "arguments":" -rf *~ modelsim_logfile.txt vsim.wlf work/ "
+        },
+        "clean_vlib":{
+            "executable": "rm -rf",
+            "arguments" : " vlib"
+        },
+        "make_vlib":{
+            "executable": "mkdir -p",
+            "arguments" : " vlib"
+        },
+        "vlib" : {
+            "executable": "vlib",
+            "arguments" : " work"
+        },
+        "test_case" : {
+            "executable": "vlog",
+            "arguments" : " $simulation +incdir+../simulation  +incdir+../testbench -timescale 1ns/1ns"
+        },
+        "simulation" : {
+            "executable": "vsim",
+            "arguments" : "  -c -do rtl_modelsim.f -l $simulation.modelsim.log"
+        }
+    },
+    "remove_files": "vlib/ work/ vsim.wlf transcript regression_sim_results.txt"
+}
