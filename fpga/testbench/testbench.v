@@ -45,7 +45,7 @@ module testbench (/*AUTOARG*/ ) ;
    wire        tx;
    wire        rx;
    wire        sclk;
-   wire        nss;
+   wire [7:0]  nss;
    wire        mosi;
    wire        miso;
    
@@ -66,7 +66,7 @@ module testbench (/*AUTOARG*/ ) ;
            // SPI Slave Interface
            //
            .sclk(sclk),
-           .nss(nss),
+           .nss(nss[0]),
            .miso(miso),
            .mosi(mosi)           
            
@@ -120,6 +120,18 @@ module testbench (/*AUTOARG*/ ) ;
    wire        uart0_we;
    wire        uart0_ack;
    wire        uart0_int;
+
+   wire [31:0] spi0_adr;
+   wire [31:0] spi0_dat_o;
+   wire [31:0] spi0_dat_i;
+   wire [3:0]  spi0_sel;
+   wire        spi0_cyc;
+   wire        spi0_stb;
+   wire        spi0_we;
+   wire        spi0_ack;
+   wire        spi0_int;
+
+   
    reg [31:0]  read_word;
    reg         test_failed;
 
@@ -177,6 +189,54 @@ module testbench (/*AUTOARG*/ ) ;
                         );
 
 
+   spi_top spi0
+     (
+      // Wishbone signals
+      .wb_clk_i(clk_tb), 
+      .wb_rst_i(reset_tb), 
+      .wb_adr_i(spi0_adr[4:0]), 
+      .wb_dat_i(spi0_dat_i), 
+      .wb_dat_o(spi0_dat_o), 
+      .wb_sel_i(spi0_sel),
+      .wb_we_i(spi0_we), 
+      .wb_stb_i(spi0_stb), 
+      .wb_cyc_i(spi0_cyc), 
+      .wb_ack_o(spi0_ack), 
+      .wb_err_o(spi0_err), 
+      .wb_int_o(spi0_int),
+      
+      // SPI signals
+      .ss_pad_o(nss), 
+      .sclk_pad_o(sclk), 
+      .mosi_pad_o(mosi), 
+      .miso_pad_i(miso)
+      );
+   
+
+   wb_mast spi_master0(
+                       .clk (clk_tb),
+                       .rst (reset_tb),
+                       .adr (spi0_adr),
+                       .din (spi0_dat_o),
+                       .dout(spi0_dat_i),
+                       .cyc (spi0_cyc),
+                       .stb (spi0_stb),
+                       .sel (spi0_sel),
+                       .we  (spi0_we ),
+                       .ack (spi0_ack),
+                       .err (1'b0),
+                       .rty (1'b0)     
+                       );
+
+   //
+   // Connect the SPI Slave Interface
+   //
+   // assign `DUT.spi.slave.nss = `DUT.nss;
+   // assign `DUT.spi.slave.sclk = `DUT.sclk;
+   // assign `DUT.spi.slave.mosi = `DUT.mosi;
+   // assign `DUT.miso = `DUT.spi.slave.miso;
+   
+      
    //
    // UART Support Tasks
    //
@@ -193,6 +253,23 @@ module testbench (/*AUTOARG*/ ) ;
 
    end
 
+   //
+   // UART Support Tasks
+   //
+   reg SPI_VALID;
+   spi_tasks spi_tasks();
+   initial begin
+      SPI_VALID = 0;
+      @(negedge reset_tb);
+      repeat(100) @(posedge clk_tb);
+      `SPI_CONFIG;
+      repeat(10) @(posedge clk_tb);
+      SPI_VALID = 1;
+      $display("SPI VALID @ %d", $time);
+
+   end
+
+   
    //
    // Tasks used to help test cases
    //

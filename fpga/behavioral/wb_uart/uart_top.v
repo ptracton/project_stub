@@ -64,12 +64,12 @@
 // CVS Revision History
 //
 // $Log: uart_top.v.rca $
-// 
+//
 //  Revision: 1.1.1.1 Tue Jun  7 09:39:01 2011 copew1
 //  first stab at merging s0903a branch.
-// 
+//
 //  Revision: 1.1 Fri Jun  3 12:44:14 2011 tractp1
-//  UART in test bench to send/receive ASCII bytes with FPGA UART and 
+//  UART in test bench to send/receive ASCII bytes with FPGA UART and
 //  command processing task in firmware
 // Revision 1.18  2002/07/22 23:02:23  gorban
 // Bug Fixes:
@@ -145,28 +145,28 @@
 `include "uart_defines.v"
 
 module uart_top	(
-		 wb_clk_i, 
-		 
+		 wb_clk_i,
+
 		 // Wishbone signals
 		 wb_rst_i, wb_adr_i, wb_dat_i, wb_dat_o, wb_we_i, wb_stb_i, wb_cyc_i, wb_ack_o, wb_sel_i,
 		 int_o, // interrupt request
-		 
+
 		 // UART	signals
 		 // serial input/output
 		 stx_pad_o, srx_pad_i,
-		 
+
 		 // modem signals
 		 rts_pad_o, cts_pad_i, dtr_pad_o, dsr_pad_i, ri_pad_i, dcd_pad_i
 		 `ifdef UART_HAS_BAUDRATE_OUTPUT
 		 , baud_o
 		 `endif
 		 );
-   
+
    parameter 							 uart_data_width = `UART_DATA_WIDTH;
    parameter 							 uart_addr_width = `UART_ADDR_WIDTH;
-   
+
    input 							 wb_clk_i;
-   
+
    // WISHBONE interface
    input 							 wb_rst_i;
    input [uart_addr_width-1:0] 					 wb_adr_i;
@@ -178,7 +178,7 @@ module uart_top	(
    input [3:0] 							 wb_sel_i;
    output 							 wb_ack_o;
    output 							 int_o;
-   
+
    // UART	signals
    input 							 srx_pad_i;
    output 							 stx_pad_o;
@@ -188,21 +188,21 @@ module uart_top	(
    input 							 dsr_pad_i;
    input 							 ri_pad_i;
    input 							 dcd_pad_i;
-   
+
    // optional baudrate output
 		 `ifdef UART_HAS_BAUDRATE_OUTPUT
    output 							 baud_o;
 		 `endif
-   
-   
+
+
    wire 							 stx_pad_o;
    wire 							 rts_pad_o;
    wire 							 dtr_pad_o;
-   
+
    wire [uart_addr_width-1:0] 					 wb_adr_i;
    wire [uart_data_width-1:0] 					 wb_dat_i;
    wire [uart_data_width-1:0] 					 wb_dat_o;
-   
+
    wire [7:0] 							 wb_dat8_i; // 8-bit internal data input
    wire [7:0] 							 wb_dat8_o; // 8-bit internal data output
    wire [31:0] 							 wb_dat32_o; // debug interface 32-bit output
@@ -213,7 +213,7 @@ module uart_top	(
    //
    // MODULE INSTANCES
    //
-   
+
 		 `ifdef DATA_BUS_WIDTH_8
 		 `else
    // debug interface wires
@@ -227,9 +227,9 @@ module uart_top	(
    wire [`UART_FIFO_COUNTER_W-1:0] 				 rf_count;
    wire [`UART_FIFO_COUNTER_W-1:0] 				 tf_count;
    wire [2:0] 							 tstate;
-   wire [3:0] 							 rstate; 
+   wire [3:0] 							 rstate;
 		 `endif
-   
+
 		 `ifdef DATA_BUS_WIDTH_8
    ////  WISHBONE interface module
    uart_wb		wb_interface(
@@ -239,7 +239,7 @@ module uart_top	(
 				     .wb_dat_o(wb_dat_o),
 				     .wb_dat8_i(wb_dat8_i),
 				     .wb_dat8_o(wb_dat8_o),
-				     .wb_dat32_o(32'b0),								 
+				     .wb_dat32_o(32'b0),
 				     .wb_sel_i(4'b0),
 				     .wb_we_i(	wb_we_i		),
 				     .wb_stb_i(	wb_stb_i	),
@@ -259,7 +259,7 @@ module uart_top	(
 				     .wb_dat8_i(wb_dat8_i),
 				     .wb_dat8_o(wb_dat8_o),
 				     .wb_sel_i(wb_sel_i),
-				     .wb_dat32_o(wb_dat32_o),								 
+				     .wb_dat32_o(wb_dat32_o),
 				     .wb_we_i(	wb_we_i		),
 				     .wb_stb_i(	wb_stb_i	),
 				     .wb_cyc_i(	wb_cyc_i	),
@@ -270,7 +270,7 @@ module uart_top	(
 				     .re_o(re_o)
 				     );
 `endif
-   
+
    // Registers
    uart_regs	regs(
 		     .clk(		wb_clk_i		),
@@ -287,27 +287,27 @@ module uart_top	(
 		     `ifdef DATA_BUS_WIDTH_8
 		     `else
 		     // debug interface signals	enabled
-		     .ier(ier), 
-		     .iir(iir), 
-		     .fcr(fcr), 
-		     .mcr(mcr), 
-		     .lcr(lcr), 
-		     .msr(msr), 
-		     .lsr(lsr), 
+		     .ier(ier),
+		     .iir(iir),
+		     .fcr(fcr),
+		     .mcr(mcr),
+		     .lcr(lcr),
+		     .msr(msr),
+		     .lsr(lsr),
 		     .rf_count(rf_count),
 		     .tf_count(tf_count),
 		     .tstate(tstate),
 		     .rstate(rstate),
-		     `endif					  
+		     `endif
 		     .rts_pad_o(		rts_pad_o		),
 		     .dtr_pad_o(		dtr_pad_o		),
 		     .int_o(		int_o		)
 		     `ifdef UART_HAS_BAUDRATE_OUTPUT
 		     , .baud_o(baud_o)
 		     `endif
-		     
+
 		     );
-   
+
 		     `ifdef DATA_BUS_WIDTH_8
 		     `else
    uart_debug_if dbg(/*AUTOINST*/
@@ -326,8 +326,8 @@ module uart_top	(
 		     .tf_count				 (tf_count[`UART_FIFO_COUNTER_W-1:0]),
 		     .tstate					 (tstate[2:0]),
 		     .rstate					 (rstate[3:0]));
-		     `endif 
-   
+		     `endif
+
    initial
      begin
 		     `ifdef DATA_BUS_WIDTH_8
@@ -341,7 +341,5 @@ module uart_top	(
 	$display("(%m) UART INFO: Doesn't have baudrate output\n");
 		     `endif
      end
-   
+
 endmodule
-
-

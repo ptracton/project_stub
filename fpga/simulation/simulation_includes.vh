@@ -20,7 +20,6 @@
 `define SYSCON      `DUT.syscon
 
 `define UART_MASTER0      `TB.uart_master0
-`define UART_MASTER1      `TB.uart_master1
 `define UART_CLK          `TB.clk_tb
 `define UART_CONFIG       `TB.uart_tasks.uart_config
 `define UART_WRITE_BYTE   `TB.uart_tasks.uart_write_byte
@@ -28,6 +27,22 @@
 `define UART_WRITE_WORD   `TB.uart_tasks.uart_write_word
 `define UART_READ_WORD    `TB.uart_tasks.uart_read_word
 `define UART_BUSY         `TB.uart_tasks.uart_busy
+
+`define SPI_MASTER0       `TB.spi_master0
+`define SPI_CLK           `TB.clk_tb
+`define SPI_CONFIG        `TB.spi_tasks.spi_config
+`define SPI_WRITE_BYTE    `TB.spi_tasks.spi_write_byte
+`define SPI_READ_BYTE     `TB.spi_tasks.spi_read_byte
+`define SPI_WRITE_WORD    `TB.spi_tasks.spi_write_word
+`define SPI_READ_WORD     `TB.spi_tasks.spi_read_word
+`define SPI_BUSY          `TB.spi_tasks.spi_busy
+`define SPI_WRITE32       `TB.spi_tasks.spi_write_wishbone32
+`define SPI_READ32        `TB.spi_tasks.spi_read_wishbone32
+`define SPI_WRITE16       `TB.spi_tasks.spi_write_wishbone16
+`define SPI_READ16        `TB.spi_tasks.spi_read_wishbone16
+`define SPI_WRITE8        `TB.spi_tasks.spi_write_wishbone8
+`define SPI_READ8         `TB.spi_tasks.spi_read_wishbone8
+
 
 //
 // Time Defines

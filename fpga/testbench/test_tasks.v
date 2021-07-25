@@ -13,7 +13,7 @@
 
 module test_tasks (/*AUTOARG*/ ) ;
 
-   reg test_case_fail = 1;
+   reg test_case_fail = 0;
 
    reg test_passed = 1'b0;
    reg test_failed = 1'b0;

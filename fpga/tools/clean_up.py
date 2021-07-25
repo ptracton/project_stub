@@ -1,15 +1,17 @@
 #! /usr/bin/env python3
 
+import sys
+import os
+import json
+import argparse
+
+
 """
 clean_up.py
 
 Clean up the simulation environment byproduct files
 """
 
-import argparse
-import json
-import os
-import sys
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
