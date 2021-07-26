@@ -16,8 +16,12 @@
 
       ../rtl/spi_slave/spi_if.sv
       ../rtl/spi_slave/spi_slave.sv
+      ../rtl/spi_slave/spi_slave_wb_master_top.sv
+      ../rtl/bus_matrix/bus_matrix.v
+      ../rtl/wishbone/wb_if.sv
+      ../rtl/wishbone/wb_master.sv
 
-      ../behavioral/wb_ram/wb_ram.v
+      ../behavioral/wb_ram/wb_ram_new.sv
       ../behavioral/wb_ram/wb_ram_generic.v
 
       ../behavioral/wb_master/wb_mast_model.v
@@ -46,5 +50,5 @@
       ../testbench/testbench.v
       ../testbench/test_tasks.v
       ../testbench/uart_tasks.v
-      ../testbench/spi_tasks.v      
+      ../testbench/spi_tasks.v
       ../testbench/dump.v
