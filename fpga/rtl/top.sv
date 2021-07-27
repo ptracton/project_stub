@@ -96,6 +96,27 @@ module top (/*AUTOARG*/
                                                 );
 
 
+   /****************************************************************************
+    
+    UART to Wishbone Bus Master
+    
+    ***************************************************************************/
+   wb_if wb_uart_master(wb_clk, wb_rst);
+   assign wb_m2s_uart_master_adr = wb_uart_master.master.wb_adr;
+   assign wb_m2s_uart_master_dat = wb_uart_master.master.wb_wdat;
+   assign wb_m2s_uart_master_sel = wb_uart_master.master.wb_sel;
+   assign wb_m2s_uart_master_we  = wb_uart_master.master.wb_we;
+   assign wb_m2s_uart_master_cyc = wb_uart_master.master.wb_cyc;
+   assign wb_m2s_uart_master_stb = wb_uart_master.master.wb_stb;
+   assign wb_m2s_uart_master_cti = 3'h00;
+   assign wb_m2s_uart_master_bte = 2'h00;
+   
+   uart_to_wishbone_master uart_wb_master0(
+                                           .wb(wb_uart_master.master),
+                                           .rx(rx),
+                                           .tx(tx)
+                                           ) ;
+   
 
    //
    // Undriven by SRAMs, ground them so they don't float and inject X's into simulation
@@ -104,7 +125,7 @@ module top (/*AUTOARG*/
    assign wb_s2m_ram1_rty = 0;
    assign wb_s2m_ram2_rty = 0;
    assign wb_s2m_ram3_rty = 0;
-
+   
    /****************************************************************************
     
     RAM 0

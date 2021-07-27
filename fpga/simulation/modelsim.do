@@ -13,6 +13,10 @@ vlib work
      vlog ../rtl/wishbone/wb_if.sv
      vlog ../rtl/wishbone/wb_master.sv
 
+     vlog ../rtl/uart/uart.v
+     vlog ../rtl/uart/uart_to_wishbone_master.v
+     vlog ../rtl/uart/packet_decode.v +incdir+../rtl/uart
+
      vlog ../rtl/bus_matrix/bus_matrix.v +indir+../rtl/bus_matrix/
 
      vlog ../rtl/top.sv +incdir+../simulation +incdir+../rtl/bus_matrix/ +incdir+../testbench
