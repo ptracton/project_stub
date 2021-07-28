@@ -10,9 +10,9 @@
 
 module uart_to_wishbone_master(
                                wb_if.master wb,
-                               input rx,
-                               output tx
-                               ) ;
+                               input wire  rx,
+                               output wire tx
+                               );
    
    parameter dw = 32;
    parameter aw = 32;
@@ -23,8 +23,8 @@ module uart_to_wishbone_master(
    wire [3:0]    cpu_selection;
    wire          cpu_write;
    wire [dw-1:0] cpu_data_wr;
-   
-   
+
+
    wire [dw-1:0] cpu_data_rd;
    wire          cpu_active;
 
@@ -44,16 +44,16 @@ module uart_to_wishbone_master(
    // The ARTY S7-50 board can't go down to 5.8 MHz, so it runs
    // at 11.6 MHz.  Since it runs twice as fast, count twice as
    // far to keep the baud rate correct.
-   parameter UART_CLOCK_DIVIDE = 24;   
+   parameter UART_CLOCK_DIVIDE = 24;
 `else
    parameter UART_CLOCK_DIVIDE = 12;
-   
+
 `endif
-   
+
    uart #(.CLOCK_DIVIDE(UART_CLOCK_DIVIDE))
    uart0(
-	 .clk(wb_clk), // The master clock for this module
-	 .rst(wb_rst), // Synchronous reset.
+	 .clk(wb.wb_clk), // The master clock for this module
+	 .rst(wb.wb_rst), // Synchronous reset.
 	 .rx(rx), // Incoming serial line
 	 .tx(tx), // Outgoing serial line
 	 .transmit(transmit), // Signal to transmit
@@ -64,14 +64,13 @@ module uart_to_wishbone_master(
 	 .is_transmitting(is_transmitting), // Low when transmit line is idle.
 	 .recv_error(recv_error) // Indicates error in receiving packet.
          );
-   
-   
+
+
    packet_decode decode(
                         // Inputs
-                        .clk(wb_clk),
-                        .rst(wb_rst),
-                        .leds(leds),
-                        
+                        .clk(wb.wb_clk),
+                        .rst(wb.wb_rst),
+
                         // UART
                         .rx_byte(rx_byte),
                         .received(received),
@@ -79,7 +78,7 @@ module uart_to_wishbone_master(
                         .is_transmitting(is_transmitting),
                         .tx_byte(tx_byte), // Byte to transmit
                         .transmit(transmit), // Signal to transmit
-                        
+
                         // CPU Bus Interface
                         .cpu_data_rd(cpu_data_rd),
                         .cpu_active(cpu_active),
@@ -91,22 +90,22 @@ module uart_to_wishbone_master(
                         ) ;
 
    //
-   // WB Bus Master 
+   // WB Bus Master
    //
-   // wb_master_interface master(
-   //                            // WB Interface
-   //                            .wb(wb),
+   wb_master_interface master(
+                              // WB Interface
+                              .wb(wb),
 
-   //                            // Control signals for state machine
-   //                            .start(cpu_start),
-   //                            .address(cpu_address),
-   //                            .selection(cpu_selection),
-   //                            .write(cpu_write),
-   //                            .data_wr(cpu_data_wr),
-   //                            .data_rd(cpu_data_rd),
+                              // Control signals for state machine
+                              .start(cpu_start),
+                              .address(cpu_address),
+                              .selection(cpu_selection),
+                              .write(cpu_write),
+                              .data_wr(cpu_data_wr),
+                              .data_rd(cpu_data_rd),
 
-   //                            .active(cpu_active)
-   //                            );
+                              .active(cpu_active)
+                              );
 
-   
+
 endmodule // uart_to_wishbone_master_top.v

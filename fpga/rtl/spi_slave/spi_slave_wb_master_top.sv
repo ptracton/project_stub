@@ -23,7 +23,7 @@ module spi_slave_wb_master_top (
    wire [3:0]           select;                 // From spi of spi_slave.v
    wire                 wrn;                    // From spi of spi_slave.v
    wire [31:0]          write_data;
-   
+
    // End of automatics
 
    //
@@ -54,7 +54,7 @@ module spi_slave_wb_master_top (
      end
 
    //
-   // WB Bus Master 
+   // WB Bus Master
    //
    wb_master_interface master(
                               // WB Interface

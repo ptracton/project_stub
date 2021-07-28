@@ -6,6 +6,7 @@
       +incdir+../behavioral/wb_uart
       +incdir+../behavioral/wb_spi/rtl/verilog/
       +incdir+../rtl/
+      +incdir+../rtl/uart
       +define+VERBOSE
       +define+SIM
       +define+RTL
@@ -14,12 +15,18 @@
       ../rtl/top.sv
       ../rtl/syscon/syscon.sv
 
+      ../rtl/uart/packet_decode.sv
+      ../rtl/uart/uart.v
+      ../rtl/uart/uart_to_wishbone_master.sv
+
       ../rtl/spi_slave/spi_if.sv
       ../rtl/spi_slave/spi_slave.sv
       ../rtl/spi_slave/spi_slave_wb_master_top.sv
       ../rtl/bus_matrix/bus_matrix.v
       ../rtl/wishbone/wb_if.sv
       ../rtl/wishbone/wb_master.sv
+
+
 
       ../behavioral/wb_ram/wb_ram_new.sv
       ../behavioral/wb_ram/wb_ram_generic.v

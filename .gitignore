@@ -140,3 +140,4 @@ transcript
 *.shm/
 xcelium.d/
 *.history
+.simvision/

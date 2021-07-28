@@ -12,8 +12,8 @@
 
 module packet_decode (/*AUTOARG*/
    // Outputs
-   leds, cpu_address, cpu_start, cpu_selection, cpu_write,
-   cpu_data_wr, transmit, tx_byte, file_num, file_write, file_read,
+   cpu_address, cpu_start, cpu_selection, cpu_write, cpu_data_wr,
+   transmit, tx_byte, file_num, file_write, file_read,
    file_write_data,
    // Inputs
    clk, rst, rx_byte, received, recv_error, is_transmitting,
@@ -31,7 +31,6 @@ module packet_decode (/*AUTOARG*/
    input       received;
    input       recv_error;
    input       is_transmitting;
-   output reg [15:0] leds;
 
    output reg [aw-1:0] cpu_address;
    output reg          cpu_start;

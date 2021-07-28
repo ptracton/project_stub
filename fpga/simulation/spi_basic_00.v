@@ -16,7 +16,7 @@ module test_case (/*AUTOARG*/ ) ;
    // Test Configuration
    // These parameters need to be set for each test case
    //
-   parameter simulation_name = "basic_00";
+   parameter simulation_name = "spi_basic_00";
    parameter number_of_tests = 896;
 
    reg [31:0] read32;
@@ -27,7 +27,7 @@ module test_case (/*AUTOARG*/ ) ;
 
    initial begin
 
-      $display("Basic Test Case");
+      $display("SPI Basic Test Case");
       @(negedge `WB_RST);
       @(posedge `TB.SPI_VALID);
       repeat (100) @(posedge `WB_CLK);
