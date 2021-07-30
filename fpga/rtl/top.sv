@@ -130,6 +130,11 @@ module top (/*AUTOARG*/
    assign wb_s2m_ram2_rty = 0;
    assign wb_s2m_ram3_rty = 0;
    
+   assign wb_s2m_ram0_err = 0;
+   assign wb_s2m_ram1_err = 0;
+   assign wb_s2m_ram2_err = 0;
+   assign wb_s2m_ram3_err = 0;
+
    /****************************************************************************
     
     RAM 0
@@ -147,8 +152,8 @@ module top (/*AUTOARG*/
    
    assign wb_s2m_ram0_dat = wb_ram0.slave.wb_rdat;
    assign wb_s2m_ram0_ack = wb_ram0.slave.wb_ack;
-   assign wb_s2m_ram0_err = wb_ram0.slave.wb_err;
-   assign wb_s2m_ram0_rty = wb_ram0.slave.wb_rty;   
+//   assign wb_s2m_ram0_err = wb_ram0.slave.wb_err;
+//   assign wb_s2m_ram0_rty = wb_ram0.slave.wb_rty;   
 
    wb_ram
      #(.depth(8192))
@@ -171,8 +176,8 @@ module top (/*AUTOARG*/
    
    assign wb_s2m_ram1_dat = wb_ram1.slave.wb_rdat;
    assign wb_s2m_ram1_ack = wb_ram1.slave.wb_ack;
-   assign wb_s2m_ram1_err = wb_ram1.slave.wb_err;
-   assign wb_s2m_ram1_rty = wb_ram1.slave.wb_rty;
+//   assign wb_s2m_ram1_err = wb_ram1.slave.wb_err;
+//   assign wb_s2m_ram1_rty = wb_ram1.slave.wb_rty;
    
    wb_ram
      #(.depth(8192))
@@ -195,8 +200,8 @@ module top (/*AUTOARG*/
 
    assign wb_s2m_ram2_dat = wb_ram2.slave.wb_rdat;
    assign wb_s2m_ram2_ack = wb_ram2.slave.wb_ack;
-   assign wb_s2m_ram2_err = wb_ram2.slave.wb_err;
-   assign wb_s2m_ram2_rty = wb_ram2.slave.wb_rty;
+//   assign wb_s2m_ram2_err = wb_ram2.slave.wb_err;
+//   assign wb_s2m_ram2_rty = wb_ram2.slave.wb_rty;
    
    wb_ram
      #(.depth(8192))
@@ -220,8 +225,8 @@ module top (/*AUTOARG*/
    
    assign wb_s2m_ram3_dat = wb_ram3.slave.wb_rdat;
    assign wb_s2m_ram3_ack = wb_ram3.slave.wb_ack;
-   assign wb_s2m_ram3_err = wb_ram3.slave.wb_err;
-   assign wb_s2m_ram3_rty = wb_ram3.slave.wb_rty;
+//   assign wb_s2m_ram3_err = wb_ram3.slave.wb_err;
+//   assign wb_s2m_ram3_rty = wb_ram3.slave.wb_rty;
    
    wb_ram
      #(.depth(8192))
