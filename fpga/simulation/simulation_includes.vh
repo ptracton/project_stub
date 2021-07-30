@@ -43,6 +43,20 @@
 `define SPI_WRITE8        `TB.spi_tasks.spi_write_wishbone8
 `define SPI_READ8         `TB.spi_tasks.spi_read_wishbone8
 
+`define DAQ_READS          `TB.comm_tasks.DAQ_READ
+`define DAQ_WRITES         `TB.comm_tasks.DAQ_WRITE
+`define DAQ_WRITES_FILE    `TB.comm_tasks.DAQ_WRITES_FILE
+`define DAQ_WRITES_BUSY    `TB.comm_tasks.daq_writes_busy
+
+`define CPU_READS           `TB.comm_tasks.CPU_READ
+`define CPU_WRITES          `TB.comm_tasks.CPU_WRITE
+
+`define PKT_PREAMBLE    8'hCA
+`define PKT_COMMAND_CPU_WRITE 4'h1
+`define PKT_COMMAND_CPU_READ  4'h2
+`define PKT_COMMAND_DAQ_WRITE 4'h3
+`define PKT_COMMAND_DAQ_READ  4'h4
+
 
 //
 // Time Defines

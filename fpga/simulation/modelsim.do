@@ -53,7 +53,10 @@ vlib work
       vlog ../testbench/test_tasks.v +incdir+../simulation +define+MODELSIM
       vlog ../testbench/uart_tasks.v  +incdir+../simulation  +incdir+../testbench  +define+MODELSIM
       vlog ../testbench/spi_tasks.v  +incdir+../simulation  +incdir+../testbench  +define+MODELSIM
-      
+      vlog ../testbench/comm_tasks.sv  +incdir+../simulation  +incdir+../testbench  +define+MODELSIM
+
+
+
 vsim -voptargs=+acc work.testbench  +define+RTL +define+SIM -l ${1}.modelsim.log
 
 do wave.do

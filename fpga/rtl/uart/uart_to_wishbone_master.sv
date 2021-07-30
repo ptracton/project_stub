@@ -40,15 +40,8 @@ module uart_to_wishbone_master(
    wire       is_transmitting;
    wire       recv_error;
 
-`ifdef SPARTAN7
-   // The ARTY S7-50 board can't go down to 5.8 MHz, so it runs
-   // at 11.6 MHz.  Since it runs twice as fast, count twice as
-   // far to keep the baud rate correct.
-   parameter UART_CLOCK_DIVIDE = 24;
-`else
-   parameter UART_CLOCK_DIVIDE = 12;
-
-`endif
+   localparam UART_CLOCK_DIVIDE = 217;
+   
 
    uart #(.CLOCK_DIVIDE(UART_CLOCK_DIVIDE))
    uart0(

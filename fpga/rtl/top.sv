@@ -48,7 +48,6 @@ module top (/*AUTOARG*/
 `include "bus_matrix.vh"
 
 
-
    /****************************************************************************
     SYSTEM CONTROLLER
 

@@ -131,14 +131,13 @@ module testbench (/*AUTOARG*/ ) ;
    wire        spi0_ack;
    wire        spi0_int;
 
-   
-   reg [31:0]  read_word;
    reg         test_failed;
-
+   reg [31:0]  read_word;
+   
 
    initial begin
-      read_word <= 0;
       test_failed <= 0;
+      read_word <= 0;
    end
 
 
@@ -228,14 +227,6 @@ module testbench (/*AUTOARG*/ ) ;
                        .rty (1'b0)     
                        );
 
-   //
-   // Connect the SPI Slave Interface
-   //
-   // assign `DUT.spi.slave.nss = `DUT.nss;
-   // assign `DUT.spi.slave.sclk = `DUT.sclk;
-   // assign `DUT.spi.slave.mosi = `DUT.mosi;
-   // assign `DUT.miso = `DUT.spi.slave.miso;
-   
       
    //
    // UART Support Tasks
@@ -250,7 +241,6 @@ module testbench (/*AUTOARG*/ ) ;
       repeat(10) @(posedge clk_tb);
       UART_VALID = 1;
       $display("UART VALID @ %d", $time);
-
    end
 
    //
@@ -266,7 +256,6 @@ module testbench (/*AUTOARG*/ ) ;
       repeat(10) @(posedge clk_tb);
       SPI_VALID = 1;
       $display("SPI VALID @ %d", $time);
-
    end
 
    
@@ -275,6 +264,12 @@ module testbench (/*AUTOARG*/ ) ;
    //
    test_tasks test_tasks();
 
+   //
+   // UART Communications Tasks
+   //
+   comm_tasks comm_tasks();
+   
+   
    //
    // The actual test cases that are being tested
    //
