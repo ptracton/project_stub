@@ -109,6 +109,11 @@ module top (/*AUTOARG*/
    assign wb_m2s_uart_master_stb = wb_uart_master.master.wb_stb;
    assign wb_m2s_uart_master_cti = 3'h00;
    assign wb_m2s_uart_master_bte = 2'h00;
+
+   assign wb_uart_master.master.wb_rdat = wb_s2m_uart_master_dat;   
+   assign wb_uart_master.master.wb_ack  = wb_s2m_uart_master_ack;
+   assign wb_uart_master.master.wb_err  = wb_s2m_uart_master_err;
+   assign wb_uart_master.master.wb_rty  = wb_s2m_uart_master_rty;
    
    uart_to_wishbone_master uart_wb_master0(
                                            .wb(wb_uart_master.master),
