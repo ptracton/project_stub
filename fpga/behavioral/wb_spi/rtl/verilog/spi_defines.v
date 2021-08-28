@@ -66,8 +66,8 @@
 // Use SPI_MAX_CHAR for fine tuning the exact number, when using
 // SPI_MAX_CHAR_32, SPI_MAX_CHAR_24, SPI_MAX_CHAR_16, SPI_MAX_CHAR_8.
 //
-//`define SPI_MAX_CHAR_128
-`define SPI_MAX_CHAR_64
+`define SPI_MAX_CHAR_128
+//`define SPI_MAX_CHAR_64
 //`define SPI_MAX_CHAR_32
 //`define SPI_MAX_CHAR_24
 //`define SPI_MAX_CHAR_16
