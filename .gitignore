@@ -141,3 +141,5 @@ transcript
 xcelium.d/
 *.history
 .simvision/
+
+GithubToken.txt
