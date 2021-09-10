@@ -13,11 +13,10 @@
 module packet_decode (/*AUTOARG*/
    // Outputs
    cpu_address, cpu_start, cpu_selection, cpu_write, cpu_data_wr,
-   transmit, tx_byte, file_num, file_write, file_read,
-   file_write_data,
+   transmit, tx_byte,
    // Inputs
    clk, rst, rx_byte, received, recv_error, is_transmitting,
-   cpu_data_rd, cpu_active, file_read_data, file_active
+   cpu_data_rd, cpu_active
    ) ;
 
 
@@ -44,12 +43,12 @@ module packet_decode (/*AUTOARG*/
    input [dw-1:0]      cpu_data_rd;
    input               cpu_active;
 
-   output reg [7:0]    file_num;
-   output reg          file_write;
-   output reg          file_read;
-   output reg [31:0]   file_write_data;
-   input [31:0]        file_read_data;
-   input               file_active;
+   reg [7:0]           file_num;
+   reg                 file_write;
+   reg                 file_read;
+   reg [31:0]          file_write_data;
+   wire [31:0]         file_read_data = 32'h0;;
+   wire                file_active = 1'b0;
 
    reg [7:0]           state;
 

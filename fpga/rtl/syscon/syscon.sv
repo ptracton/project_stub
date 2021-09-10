@@ -58,6 +58,9 @@ module syscon (/*AUTOARG*/
 `else
 
    // Put technology specific clocking here, things like Xilinx DCM/Clock Wizard, etc...
+   assign wb_clk = clk;   
+   assign locked = 1'b1;
+
 `endif
 
    

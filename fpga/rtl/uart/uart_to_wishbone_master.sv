@@ -63,7 +63,7 @@ module uart_to_wishbone_master(
                         // Inputs
                         .clk(wb.wb_clk),
                         .rst(wb.wb_rst),
-
+                        
                         // UART
                         .rx_byte(rx_byte),
                         .received(received),

@@ -14,58 +14,36 @@ set_property verilog_dir {
     ../../behavioral/
     ../../rtl/gpio
     ../../rtl/bus_matrix/
+    ../../rtl/
 } [current_fileset]
 read_verilog -library xil_defaultlib {
     basys.v
-    ../../rtl/top.v
-    ../../rtl/cpu/cpu_top.v
-    ../../rtl/syscon/syscon_top.v
-    ../../rtl/syscon/syscon_regs.v
-    ../../rtl/syscon/syscon.v
-    ../../rtl/daq/daq_slave.v
-    ../../rtl/daq/daq_top.v
-    ../../rtl/daq/daq_sm.v
-    ../../rtl/dsp/dsp_slave.v
-    ../../rtl/dsp/dsp_top.v
-    ../../rtl/dsp/dsp_sm.v
-    ../../rtl/dsp/dsp_equations_top.v
-    ../../rtl/dsp/dsp_equation_sum.v
-    ../../rtl/dsp/dsp_equation_multiply.v
-    ../../rtl/dsp/dsp_equation_dtree.v
-    ../../rtl/dsp/priority_encoder.v
+     ../../rtl/syscon/syscon.sv 
+
+     ../../rtl/spi_slave/spi_if.sv
+     ../../rtl/spi_slave/spi_slave.sv
+     ../../rtl/spi_slave/spi_slave_wb_master_top.sv
+     
+     ../../rtl/wishbone/wb_if.sv
+     ../../rtl/wishbone/wb_master.sv
+
+     ../../rtl/uart/uart.v
+     ../../rtl/uart/uart_to_wishbone_master.sv
+     ../../rtl/uart/packet_decode.sv 
+
+     ../../rtl/bus_matrix/bus_matrix.v
     
-    ../../rtl/wb_master_interface/arbiter.v
-    ../../rtl/wb_master_interface/wb_master_interface.v
-    ../../rtl/bus_matrix/bus_matrix.v
-
-    ../../rtl/pc_interface/pc_interface.v
-    ../../rtl/pc_interface/packet_decode.v
-    ../../rtl/uart/uart.v
-
-    ../../rtl/gpio/gpio_top.v
-
-    ../../rtl/display/display.v
-    ../../rtl/display/timer.v
-    
-    ../../behavioral/wb_ram/wb_ram.v
-    ../../behavioral/wb_ram/wb_ram_generic.v
+    ../../rtl/top.sv 
 
     ../../behavioral/wb_master/wb_mast_model.v
-
-    ../../behavioral/wb_intercon/wb_arbiter.v
+    ../../behavioral/wb_intercon/wb_arbiter.v 
+    ../../behavioral/wb_intercon/arbiter.v 
     ../../behavioral/wb_intercon/wb_data_resize.v
     ../../behavioral/wb_intercon/wb_mux.v
-
-    ../../behavioral/wb_uart/raminfr.v
-    ../../behavioral/wb_uart/uart_debug_if.v
-    ../../behavioral/wb_uart/uart_receiver.v
-    ../../behavioral/wb_uart/uart_regs.v
-    ../../behavioral/wb_uart/uart_rfifo.v
-    ../../behavioral/wb_uart/uart_sync_flops.v
-    ../../behavioral/wb_uart/uart_tfifo.v
-    ../../behavioral/wb_uart/uart_top.v
-    ../../behavioral/wb_uart/uart_transmitter.v
-    ../../behavioral/wb_uart/uart_wb.v
+    
+    ../../behavioral/wb_ram/wb_ram_new.sv
+    ../../behavioral/wb_ram/wb_ram_generic.v
+    
 }
 
 read_ip ./ip/clk_wiz_0/clk_wiz_0.xci
